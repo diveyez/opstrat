@@ -16,10 +16,7 @@ def black_scholes(t=40, r=4.00, v=32.00, K=60, St=62, type='c'):
     # if type = 'c' or 'C' call option else put option
     try:
         type=type.lower()
-        if(type=='c'):
-            option_type='call'
-        else:
-            option_type='put'
+        option_type = 'call' if (type=='c') else 'put'
     except:
         option_type='put'
 
@@ -36,7 +33,7 @@ def black_scholes(t=40, r=4.00, v=32.00, K=60, St=62, type='c'):
         r=r/100
     except:
         raise TypeError("Enter numerical value for risk free rate")
-    
+
     #Check volatility
     try:
         #convert percentage to decimal
@@ -49,13 +46,13 @@ def black_scholes(t=40, r=4.00, v=32.00, K=60, St=62, type='c'):
         St=St+0
     except:
         raise TypeError("Enter numerical value for stock price")
-    
+
     #Check Exercise Price
     try:
         K=K+0
     except:
         raise TypeError("Enter numerical value for Exercise price")    
-    
+
     n1=np.log(St/K)
     n2=(r+(np.power(v,2)/2))*t
     d=v*(np.sqrt(t))
@@ -96,7 +93,7 @@ def black_scholes(t=40, r=4.00, v=32.00, K=60, St=62, type='c'):
 
     gamma=(np.exp(-np.power(d1,2)/2))/(St*v*np.sqrt(2*np.pi*t))
     vega=(St*np.sqrt(t)*np.exp(-np.power(d1,2)/2))/(np.sqrt(2*np.pi)*100)
-    
+
     #Option greeks in Dictionary
     greeks={'delta':delta, 'gamma':gamma, 'theta':theta, 'vega':vega, 'rho':rho}
 

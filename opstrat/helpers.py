@@ -11,11 +11,10 @@ def check_trtype(tr_type):
 
 def payoff_calculator(x, op_type, strike, op_pr, tr_type, n):
     y=[]
-    if op_type=='c':
-        for i in range(len(x)):
+    for i in range(len(x)):
+        if op_type=='c':
             y.append(max((x[i]-strike-op_pr),-op_pr))
-    else:
-        for i in range(len(x)):
+        else:
             y.append(max(strike-x[i]-op_pr,-op_pr))
     y=np.array(y)
 

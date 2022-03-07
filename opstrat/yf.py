@@ -118,17 +118,25 @@ def yf_plotter(ticker='msft',exp='default',spot_range=10,
                 contract=str(op_list[i]['contract'])  
             except:
                 contract='1'
-                
-            label=contract+' '+str(abb[op_list[i]['tr_type']])+' '+str(abb[op_list[i]['op_type']])+' ST: '+str(op_list[i]['strike'])
+
+            label = (
+                f'{contract} '
+                + str(abb[op_list[i]['tr_type']])
+                + ' '
+                + str(abb[op_list[i]['op_type']])
+                + ' ST: '
+                + str(op_list[i]['strike'])
+            )
+
             sns.lineplot(x=x, y=y_list[i], label=label, alpha=0.5)
             y+=np.array(y_list[i])
-        
+
         sns.lineplot(x=x, y=y, label='combined', alpha=1, color='k')
         plt.axhline(color='k', linestyle='--')
         plt.axvline(x=spot, color='r', linestyle='--', label='spot price')
         plt.legend()
         plt.legend(loc='upper right')
-        title="OPTION STRATEGY ("+str.upper(ticker)+') '+' Exp :'+str(exp)
+        title = f"OPTION STRATEGY ({str.upper(ticker)})  Exp :{str(exp)}"
         plt.fill_between(x, y, 0, alpha=0.2, where=y>y0, facecolor='green', interpolate=True)
         plt.fill_between(x, y, 0, alpha=0.2, where=y<y0, facecolor='red', interpolate=True)
         plt.title(title)
